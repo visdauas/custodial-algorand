@@ -51,7 +51,10 @@ export const Wallet = () => {
         </Flex>
 
         <Flex flex={{ base: 1 }} justify={"end"}>
-          <Button onClick={() => router.push(Routes.SendPage({ walletAddress: walletAddress }))}>
+          <Button
+            bg={"#01B0D3"}
+            onClick={() => router.push(Routes.SendPage({ walletAddress: walletAddress }))}
+          >
             Send
           </Button>
         </Flex>
