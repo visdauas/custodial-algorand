@@ -43,11 +43,6 @@ export const LoginFormm = (props: LoginFormProps) => {
       >
         <LabeledTextField name="email" label="Email" placeholder="Email" />
         <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
-        <div>
-          <BlitzLink href={Routes.ForgotPasswordPage()}>
-            <a>Forgot your password?</a>
-          </BlitzLink>
-        </div>
       </Form>
 
       <div style={{ marginTop: "1rem" }}>
@@ -115,9 +110,6 @@ export const LoginForm = (props: LoginFormProps) => {
                 type="password"
               />
               <Stack spacing={5}>
-                <Link href={Routes.ForgotPasswordPage().pathname} color={"blue.400"}>
-                  Forgot password?
-                </Link>
                 <Button
                   type="submit"
                   bg={"blue.400"}
