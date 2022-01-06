@@ -1,10 +1,4 @@
-import { Link, useRouter, useMutation, BlitzPage, Routes, useParam, useQuery } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import createQuestion from "app/questions/mutations/createQuestion"
-import { QuestionForm, FORM_ERROR } from "app/questions/components/QuestionForm"
-import { createQuestionSchema } from "app/questions/validations"
-import createWallet from "integrations/tatum/mutations/createWallet"
-import NewQuestionPage from "../questions/new"
+import { useRouter, useMutation, BlitzPage, Routes, useParam, useQuery } from "blitz"
 import WalletLayout from "app/core/layouts/WalletLayout"
 import { Form } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
@@ -28,16 +22,19 @@ const SendPage: BlitzPage = () => {
       padding={5}
     >
       <Form
-        initialValues={{ addressFrom: walletAddress, addressTo: "", amount: "0", fee: "0.01" }}
+        initialValues={{
+          addressFrom: walletAddress,
+          addressTo: "",
+          amount: "0",
+          fee: "0.001",
+          note: "",
+        }}
         onSubmit={async (values) => {
           try {
             await sendTransactionMutation(values)
             router.push(Routes.ShowWalletPage({ walletAddress: walletAddress! }))
           } catch (error: any) {
             console.error(error)
-            return {
-              [FORM_ERROR]: error.toString(),
-            }
           }
         }}
       >
@@ -45,6 +42,7 @@ const SendPage: BlitzPage = () => {
         <LabeledTextField name="addressTo" label="Address To" placeholder="Address To" />
         <LabeledTextField name="amount" label="Amount" placeholder="0" />
         <LabeledTextField name="fee" label="Fee" placeholder="0" />
+        <LabeledTextField name="note" label="Note" placeholder="" />
         <Button
           type="submit"
           bg={"blue.400"}
@@ -54,7 +52,7 @@ const SendPage: BlitzPage = () => {
           }}
         >
           Send
-        </Button>{" "}
+        </Button>
       </Form>
     </Box>
   )

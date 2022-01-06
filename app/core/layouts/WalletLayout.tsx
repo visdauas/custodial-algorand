@@ -7,9 +7,26 @@ import {
   Link as BlitzLink,
   useMutation,
   useRouter,
-  Router,
 } from "blitz"
 import logo from "public/logo.png"
+import React, { ReactNode, Suspense } from "react"
+import {
+  Box,
+  CloseButton,
+  Flex,
+  Drawer,
+  DrawerContent,
+  useDisclosure,
+  BoxProps,
+  FlexProps,
+  Button,
+  Stack,
+} from "@chakra-ui/react"
+import { ReactText } from "react"
+import getWallets from "integrations/tatum/queries/getWallets"
+import { AlgoWallet } from "@prisma/client"
+import logout from "app/auth/mutations/logout"
+import { useCurrentUser } from "../hooks/useCurrentUser"
 
 const WalletLayout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
   return (
@@ -23,50 +40,6 @@ const WalletLayout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
     </>
   )
 }
-
-import React, { ReactNode, Suspense } from "react"
-import {
-  IconButton,
-  Avatar,
-  Box,
-  CloseButton,
-  Flex,
-  HStack,
-  VStack,
-  Icon,
-  Link,
-  Drawer,
-  DrawerContent,
-  Text,
-  useDisclosure,
-  BoxProps,
-  FlexProps,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-  Button,
-  Stack,
-  useBreakpointValue,
-} from "@chakra-ui/react"
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from "react-icons/fi"
-import { IconType } from "react-icons"
-import { ReactText } from "react"
-import getWallets from "integrations/tatum/queries/getWallets"
-import { AlgoWallet } from "@prisma/client"
-import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons"
-import logout from "app/auth/mutations/logout"
-import { useCurrentUser } from "../hooks/useCurrentUser"
 
 function SidebarWithHeader({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure()

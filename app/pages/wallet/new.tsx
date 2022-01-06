@@ -1,10 +1,5 @@
-import { Link, useRouter, useMutation, BlitzPage, Routes } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import createQuestion from "app/questions/mutations/createQuestion"
-import { QuestionForm, FORM_ERROR } from "app/questions/components/QuestionForm"
-import { createQuestionSchema } from "app/questions/validations"
+import { useRouter, useMutation, BlitzPage, Routes } from "blitz"
 import createWallet from "integrations/tatum/mutations/createWallet"
-import NewQuestionPage from "../questions/new"
 import WalletLayout from "app/core/layouts/WalletLayout"
 import { Form } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
@@ -24,9 +19,6 @@ const NewWalletPage: BlitzPage = () => {
             router.replace(Routes.ShowWalletPage({ walletAddress: wallet.address }))
           } catch (error: any) {
             console.error(error)
-            return {
-              [FORM_ERROR]: error.toString(),
-            }
           }
         }}
       >
@@ -40,7 +32,7 @@ const NewWalletPage: BlitzPage = () => {
           }}
         >
           Create
-        </Button>{" "}
+        </Button>
       </Form>
     </div>
   )

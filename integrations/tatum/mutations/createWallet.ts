@@ -21,7 +21,7 @@ export default resolver.pipe(
       throw new Error("Wallet name already exists")
 
     const algoWallet = await generateAlgoWallet()
-    const address = await assignDepositAddress(user.tatumAccountId!, algoWallet.address)
+    await assignDepositAddress(user.tatumAccountId!, algoWallet.address)
 
     await db.algoWallet.create({
       data: {

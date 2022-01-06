@@ -1,38 +1,7 @@
 import { Suspense } from "react"
-import { Image, Link as BlitzLink, BlitzPage, useMutation, Routes } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import logout from "app/auth/mutations/logout"
-import logo from "public/logo.png"
-
-import { generateWallet, Currency } from "@tatumio/tatum"
-
-import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Button,
-  Stack,
-  Collapse,
-  Icon,
-  Link,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  useColorModeValue,
-  useBreakpointValue,
-  useDisclosure,
-  useColorMode,
-} from "@chakra-ui/react"
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-  MoonIcon,
-  SunIcon,
-} from "@chakra-ui/icons"
+import { BlitzPage } from "blitz"
+import { Box, Text, Stack, Heading, Container } from "@chakra-ui/react"
+import WalletLayout from "app/core/layouts/WalletLayout"
 
 const Home: BlitzPage = () => {
   return (
@@ -43,10 +12,6 @@ const Home: BlitzPage = () => {
     </div>
   )
 }
-import { Head } from "blitz"
-import WalletLayout from "app/core/layouts/WalletLayout"
-
-import { Heading, Container, createIcon } from "@chakra-ui/react"
 
 function CallToActionWithAnnotation() {
   return (

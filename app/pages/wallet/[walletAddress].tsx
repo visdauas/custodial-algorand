@@ -1,29 +1,23 @@
 import { Suspense } from "react"
-import {
-  Head,
-  Link as BlitzLink,
-  useRouter,
-  useQuery,
-  useParam,
-  BlitzPage,
-  useMutation,
-  Routes,
-} from "blitz"
+import { useRouter, useQuery, useParam, BlitzPage, Routes } from "blitz"
 import getTransactionsForAddress from "integrations/tatum/queries/getTransactionsForAddress"
 import WalletLayout from "app/core/layouts/WalletLayout"
 import {
   List,
   ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
   Button,
-  Stack,
   Text,
   Link,
-  StackDivider,
   Flex,
+  Box,
+  SimpleGrid,
+  Stat,
+  StatLabel,
+  StatNumber,
 } from "@chakra-ui/react"
+import getBalance from "integrations/tatum/queries/getBalance"
+import getCurrentBlock from "integrations/tatum/queries/getCurrentBlock"
+
 export const Wallet = () => {
   const router = useRouter()
   const walletAddress = useParam("walletAddress", "string")
@@ -104,14 +98,11 @@ export const Wallet = () => {
   )
 }
 
-import { Box, chakra, SimpleGrid, Stat, StatLabel, StatNumber } from "@chakra-ui/react"
-import getBalance from "integrations/tatum/queries/getBalance"
-import getCurrentBlock from "integrations/tatum/queries/getCurrentBlock"
-
 interface StatsCardProps {
   title: string
   stat: string
 }
+
 function StatsCard(props: StatsCardProps) {
   const { title, stat } = props
   return (
@@ -137,6 +128,7 @@ interface TransactionCardProps {
   transaction: any
   walletAddress: string
 }
+
 function TransactionCard(props: TransactionCardProps) {
   const { transaction, walletAddress } = props
   return (

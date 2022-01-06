@@ -1,12 +1,7 @@
 import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from "react"
 import { useField, UseFieldConfig } from "react-final-form"
 
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-} from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, Stack } from "@chakra-ui/react"
 
 export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<typeof Input> {
   /** Field name. */
@@ -30,14 +25,14 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
         props.type === "number"
           ? (Number as any)
           : // Converting `""` to `null` ensures empty values will be set to null in the DB
-          (v) => (v === "" ? null : v),
+            (v) => (v === "" ? null : v),
       ...fieldProps,
     })
 
     const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
 
     return (
-      (<FormControl {...outerProps}>
+      <FormControl {...outerProps}>
         <FormLabel {...labelProps}>
           <Stack spacing={2}>
             <FormLabel>{label}</FormLabel>
@@ -49,9 +44,8 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
             {normalizedError}
           </div>
         )}
-
-      </FormControl>)
-    );
+      </FormControl>
+    )
   }
 )
 

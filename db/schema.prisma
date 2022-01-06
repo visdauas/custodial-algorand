@@ -67,24 +67,6 @@ model Token {
 //   RESET_PASSWORD
 // }
 
-model Question {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  text      String
-  choices   Choice[]
-}
-
-model Choice {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  text       String
-  votes      Int      @default(0)
-  question   Question @relation(fields: [questionId], references: [id])
-  questionId Int
-}
-
 model AlgoWallet {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
