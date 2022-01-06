@@ -1,4 +1,14 @@
-import { Image, Head, BlitzLayout, useQuery, Routes, Link as BlitzLink, useMutation } from "blitz"
+import {
+  Image,
+  Head,
+  BlitzLayout,
+  useQuery,
+  Routes,
+  Link as BlitzLink,
+  useMutation,
+  useRouter,
+  Router,
+} from "blitz"
 import logo from "public/logo.png"
 
 const WalletLayout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
@@ -63,7 +73,7 @@ function SidebarWithHeader({ children }: { children: ReactNode }) {
 
   return (
     <Box minH="100vh" bg={"#242333"}>
-      <Test onClose={onClose} />
+      <LoginSidebar onClose={onClose} />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -74,7 +84,7 @@ function SidebarWithHeader({ children }: { children: ReactNode }) {
         size="full"
       >
         <DrawerContent>
-          <Test onClose={onClose} />
+          <LoginSidebar onClose={onClose} />
         </DrawerContent>
       </Drawer>
       <Flex
@@ -88,6 +98,7 @@ function SidebarWithHeader({ children }: { children: ReactNode }) {
         borderColor={"#016a7f"}
         align={"center"}
       >
+        <LoginLogo />
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}></Flex>
 
         <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
@@ -101,7 +112,16 @@ function SidebarWithHeader({ children }: { children: ReactNode }) {
   )
 }
 
-const Test = ({ onClose, ...rest }: SidebarProps) => {
+const LoginLogo = () => {
+  const currentUser = useCurrentUser()
+
+  if (currentUser) {
+    return null
+  }
+  return <Image src={logo} alt="Logo" width={50} height={50} />
+}
+
+const LoginSidebar = ({ onClose, ...rest }: SidebarProps) => {
   const currentUser = useCurrentUser()
 
   if (!currentUser) {
@@ -197,6 +217,7 @@ const NavItem = ({ href, children, ...rest }: NavItemProps) => {
 const Login = () => {
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
+  const router = useRouter()
 
   if (currentUser) {
     return (
@@ -209,6 +230,7 @@ const Login = () => {
           bg={"red.400"}
           onClick={async () => {
             await logoutMutation()
+            router.push(Routes.Home())
           }}
           _hover={{
             bg: "red.300",
@@ -235,10 +257,10 @@ const Login = () => {
           fontSize={"sm"}
           fontWeight={600}
           color={"white"}
-          bg={"pink.400"}
+          bg={"#01B0D3"}
           href={Routes.SignupPage().pathname}
           _hover={{
-            bg: "pink.300",
+            bg: "#01B0D3",
           }}
         >
           Sign Up

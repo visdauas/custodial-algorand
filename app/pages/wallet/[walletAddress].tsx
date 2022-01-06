@@ -30,7 +30,7 @@ export const Wallet = () => {
   const [transactions] = useQuery(getTransactionsForAddress, { address: walletAddress! })
   const [balance] = useQuery(getBalance, { address: walletAddress! })
   const [currentBlockNum] = useQuery(getCurrentBlock, null)
-  console.log(transactions)
+
   return (
     <>
       <Box margin={5}>
@@ -57,7 +57,9 @@ export const Wallet = () => {
         </Flex>
 
         <Flex flex={{ base: 1 }} justify={"end"}>
-          <Button onClick={() => router.push(Routes.SendPage())}>Send</Button>
+          <Button onClick={() => router.push(Routes.SendPage({ walletAddress: walletAddress }))}>
+            Send
+          </Button>
         </Flex>
       </Flex>
 
@@ -148,7 +150,6 @@ function TransactionCard(props: TransactionCardProps) {
         target="_blank"
         href={"https://testnet.algoexplorer.io/block/" + transaction["confirmed-round"]}
       >
-        {" "}
         {transaction["confirmed-round"]}
       </Link>
       <Text>{transaction.sender == walletAddress ? "Sent" : "Received"}</Text>
@@ -157,7 +158,6 @@ function TransactionCard(props: TransactionCardProps) {
           target="_blank"
           href={"https://testnet.algoexplorer.io/address/" + transaction.sender}
         >
-          {" "}
           {transaction.sender}
         </Link>
       </Text>
@@ -168,7 +168,6 @@ function TransactionCard(props: TransactionCardProps) {
             "https://testnet.algoexplorer.io/address/" + transaction["payment-transaction"].receiver
           }
         >
-          {" "}
           {transaction["payment-transaction"].receiver}
         </Link>
       </Text>

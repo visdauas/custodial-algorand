@@ -1,8 +1,10 @@
-[![Blitz.js](https://raw.githubusercontent.com/blitz-js/art/master/github-cover-photo.png)](https://blitzjs.com)
+![](https://gifyu.com/image/SSGk1)
 
 This is a [Blitz.js](https://github.com/blitz-js/blitz) app.
 
-# **custodial-algorand**
+# **Algorand Custody**
+
+![](https://gifyu.com/image/SSGkA)
 
 ## Getting Started
 

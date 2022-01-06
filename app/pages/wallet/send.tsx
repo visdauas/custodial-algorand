@@ -1,4 +1,4 @@
-import { Link, useRouter, useMutation, BlitzPage, Routes } from "blitz"
+import { Link, useRouter, useMutation, BlitzPage, Routes, useParam, useQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createQuestion from "app/questions/mutations/createQuestion"
 import { QuestionForm, FORM_ERROR } from "app/questions/components/QuestionForm"
@@ -8,21 +8,31 @@ import NewQuestionPage from "../questions/new"
 import WalletLayout from "app/core/layouts/WalletLayout"
 import { Form } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
-import { Button } from "@chakra-ui/react"
+import { Box, Button } from "@chakra-ui/react"
 import sendTransaction from "integrations/tatum/mutations/sendTransaction"
 
 const SendPage: BlitzPage = () => {
   const router = useRouter()
   const [sendTransactionMutation] = useMutation(sendTransaction)
+  const query = new URLSearchParams(location.search)
+  const walletAddress = query.get("walletAddress")
 
+  console.log(walletAddress)
   return (
-    <div>
+    <Box
+      shadow={"xl"}
+      border={"1.5px solid"}
+      borderColor={"#01B0D3"}
+      rounded={"lg"}
+      margin={5}
+      padding={5}
+    >
       <Form
-        initialValues={{ addressFrom: "", addressTo: "", amount: "0", fee: "0" }}
+        initialValues={{ addressFrom: walletAddress, addressTo: "", amount: "0", fee: "0.01" }}
         onSubmit={async (values) => {
           try {
             await sendTransactionMutation(values)
-            router.push(Routes.ShowWalletPage({ walletAddress: values.addressFrom }))
+            router.push(Routes.ShowWalletPage({ walletAddress: walletAddress! }))
           } catch (error: any) {
             console.error(error)
             return {
@@ -43,10 +53,10 @@ const SendPage: BlitzPage = () => {
             bg: "blue.500",
           }}
         >
-          Create
+          Send
         </Button>{" "}
       </Form>
-    </div>
+    </Box>
   )
 }
 
