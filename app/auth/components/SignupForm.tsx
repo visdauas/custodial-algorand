@@ -52,34 +52,25 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
   Link,
-} from '@chakra-ui/react';
-import { useState } from 'react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import CreateTatumAccount from "integrations/tatum/mutations/createTatumAccount"
+} from "@chakra-ui/react"
 
 export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
 
   return (
-    <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign up to Algo Custody</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            Already a user? <Link href={Routes.LoginPage().pathname} color={'blue.400'}>Login!</Link>
+    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.800"}>
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Sign up to Algo Custody</Heading>
+          <Text fontSize={"lg"} color={"gray.600"}>
+            Already a user?{" "}
+            <Link href={Routes.LoginPage().pathname} color={"blue.400"}>
+              Login!
+            </Link>
           </Text>
         </Stack>
-        <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}>
+        <Box rounded={"lg"} bg={"gray.700"} boxShadow={"lg"} p={8}>
           <Stack spacing={2}>
             <Form
               schema={Signup}
@@ -98,17 +89,22 @@ export const SignupForm = (props: SignupFormProps) => {
                 }
               }}
             >
-
               <LabeledTextField name="email" label="Email" placeholder="Email" />
-              <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
+              <LabeledTextField
+                name="password"
+                label="Password"
+                placeholder="Password"
+                type="password"
+              />
               <Stack spacing={5}>
                 <Button
                   type="submit"
-                  bg={'blue.400'}
-                  color={'white'}
+                  bg={"blue.400"}
+                  color={"white"}
                   _hover={{
-                    bg: 'blue.500',
-                  }}>
+                    bg: "blue.500",
+                  }}
+                >
                   Sign up
                 </Button>
               </Stack>
@@ -117,8 +113,7 @@ export const SignupForm = (props: SignupFormProps) => {
         </Box>
       </Stack>
     </Flex>
-
-  );
+  )
 }
 
 export default SignupForm

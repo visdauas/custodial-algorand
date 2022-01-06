@@ -1,5 +1,14 @@
 import { Suspense } from "react"
-import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes, useQuery, useMutation } from "blitz"
+import {
+  Head,
+  Link,
+  usePaginatedQuery,
+  useRouter,
+  BlitzPage,
+  Routes,
+  useQuery,
+  useMutation,
+} from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useTatum } from "app/core/hooks/useTatum"
 import getBalance from "integrations/tatum/queries/getBalance"
@@ -8,6 +17,7 @@ import getWallets from "integrations/tatum/queries/getWallets"
 import getAlgoExchangeRate from "integrations/tatum/queries/getAlgoExchangeRate"
 import createTatumAccount from "integrations/tatum/mutations/createTatumAccount"
 import getAccountBalance from "integrations/tatum/queries/getAccountBalance"
+import getTransactions from "integrations/tatum/queries/getTransactions"
 
 export const Tatum = () => {
   //const tatum = useTatum()
@@ -15,10 +25,11 @@ export const Tatum = () => {
   const [balance] = useQuery(getAccountBalance, null)
   const [wallets] = useQuery(getWallets, null)
   const [price] = useQuery(getAlgoExchangeRate, null)
+  const [transactions] = useQuery(getTransactions, null)
   //const [balance] = useQuery(getBalance, { address: tatum! })
   //const [balance] = useQuery(getBalance, { address: 'WJAH4Q2RZWINJQF3HBUM2GSHOQQRSWVBLEHJFEYHETR6JGRZ2CPWFCJG7M' })
 
-  console.log(balance)
+  console.log(transactions)
 
   return (
     <div>
@@ -29,7 +40,7 @@ export const Tatum = () => {
       Available Balance: {balance?.availableBalance} ALGO
       <br />
       <br />
-       <ul>
+      <ul>
         {wallets.map((wallet) => (
           <li key={wallet.id}>
             {wallet.name}
@@ -43,19 +54,20 @@ export const Tatum = () => {
         ))}
       </ul>
       <br />
-      <button onClick={async () => await createWalletMutation({name: 'test'})}>Create Wallet</button>
+      <button onClick={async () => await createWalletMutation({ name: "test" })}>
+        Create Wallet
+      </button>
     </div>
   )
 }
 
-const GetBalance =  (address: string) => {
+const GetBalance = (address: string) => {
   const [balance] = useQuery(getBalance, { address: address })
 
   return balance
 }
 
 const TatumPage: BlitzPage = () => {
-
   return (
     <>
       <Head>

@@ -1,4 +1,10 @@
-import { AuthenticationError, Link as BlitzLink, useMutation, Routes, PromiseReturnType } from "blitz"
+import {
+  AuthenticationError,
+  Link as BlitzLink,
+  useMutation,
+  Routes,
+  PromiseReturnType,
+} from "blitz"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import login from "app/auth/mutations/login"
@@ -62,34 +68,28 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react"
 
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
 
   return (
-    <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            Don&apos;t have an account yet? <Link href={Routes.SignupPage().pathname} color={'blue.400'}>Sign up!</Link>
+    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.800"}>
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Sign in to your account</Heading>
+          <Text fontSize={"lg"} color={"gray.600"}>
+            Don&apos;t have an account yet?{" "}
+            <Link href={Routes.SignupPage().pathname} color={"blue.400"}>
+              Sign up!
+            </Link>
           </Text>
         </Stack>
-        <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}>
+        <Box rounded={"lg"} bg={"gray.700"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
             <Form
               schema={Login}
-              initialValues={{ email: "visdauas@gmail.com", password: "Kecske5555" }}
+              initialValues={{ email: "", password: "" }}
               onSubmit={async (values) => {
                 try {
                   const user = await loginMutation(values)
@@ -100,27 +100,32 @@ export const LoginForm = (props: LoginFormProps) => {
                   } else {
                     return {
                       [FORM_ERROR]:
-                        "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+                        "Sorry, we had an unexpected error. Please try again. - " +
+                        error.toString(),
                     }
                   }
                 }
               }}
             >
-
               <LabeledTextField name="email" label="Email" placeholder="Email" />
-              <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
+              <LabeledTextField
+                name="password"
+                label="Password"
+                placeholder="Password"
+                type="password"
+              />
               <Stack spacing={5}>
-                <Link href={Routes.ForgotPasswordPage().pathname}
-                  color={'blue.400'}>
+                <Link href={Routes.ForgotPasswordPage().pathname} color={"blue.400"}>
                   Forgot password?
                 </Link>
                 <Button
                   type="submit"
-                  bg={'blue.400'}
-                  color={'white'}
+                  bg={"blue.400"}
+                  color={"white"}
                   _hover={{
-                    bg: 'blue.500',
-                  }}>
+                    bg: "blue.500",
+                  }}
+                >
                   Sign in
                 </Button>
               </Stack>
@@ -129,7 +134,7 @@ export const LoginForm = (props: LoginFormProps) => {
         </Box>
       </Stack>
     </Flex>
-  );
+  )
 }
 
 export default LoginForm
