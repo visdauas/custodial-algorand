@@ -1,10 +1,11 @@
-![](https://gifyu.com/image/SSGk1)
+
 
 This is a [Blitz.js](https://github.com/blitz-js/blitz) app.
 
 # **Algorand Custody**
 
-![](https://gifyu.com/image/SSGkA)
+![](https://s10.gifyu.com/images/wallet1.png)
+![](https://s10.gifyu.com/images/wallet2.png)
 
 ## Getting Started
 
