@@ -1,8 +1,6 @@
-
-
-This is a [Blitz.js](https://github.com/blitz-js/blitz) app.
-
 # **Algorand Custody**
+
+## Try it out -> [Demo Site](http://20.123.179.17:8080/)
 
 ![](https://s10.gifyu.com/images/wallet1.png)
 ![](https://s10.gifyu.com/images/wallet2.png)
