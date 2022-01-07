@@ -47,5 +47,6 @@ const NewWalletPage: BlitzPage = () => {
 
 NewWalletPage.authenticate = true
 NewWalletPage.getLayout = (page) => <WalletLayout title={"Create Wallet"}>{page}</WalletLayout>
+NewWalletPage.suppressFirstRenderFlicker = true
 
 export default NewWalletPage

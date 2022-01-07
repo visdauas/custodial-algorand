@@ -60,5 +60,6 @@ const SendPage: BlitzPage = () => {
 
 SendPage.authenticate = true
 SendPage.getLayout = (page) => <WalletLayout title={"Send"}>{page}</WalletLayout>
+SendPage.suppressFirstRenderFlicker = true
 
 export default SendPage

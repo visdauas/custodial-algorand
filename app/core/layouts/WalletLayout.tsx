@@ -10,19 +10,7 @@ import {
 } from "blitz"
 import logo from "public/logo.png"
 import React, { ReactNode, Suspense } from "react"
-import {
-  Box,
-  CloseButton,
-  Flex,
-  Drawer,
-  DrawerContent,
-  useDisclosure,
-  BoxProps,
-  FlexProps,
-  Button,
-  Stack,
-  Text,
-} from "@chakra-ui/react"
+import { Box, Flex, useDisclosure, FlexProps, Button, Stack, Text } from "@chakra-ui/react"
 import { ReactText } from "react"
 import getWallets from "integrations/tatum/queries/getWallets"
 import { AlgoWallet } from "@prisma/client"
@@ -43,8 +31,6 @@ const WalletLayout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
 }
 
 function SidebarWithHeader({ children }: { children: ReactNode }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-
   return (
     <Box minH="100vh" bg={"#242333"} color={"white"}>
       <LoginSidebar />

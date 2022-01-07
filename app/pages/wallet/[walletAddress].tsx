@@ -183,5 +183,6 @@ const ShowWalletPage: BlitzPage = () => {
 
 ShowWalletPage.authenticate = true
 ShowWalletPage.getLayout = (page) => <WalletLayout>{page}</WalletLayout>
+ShowWalletPage.suppressFirstRenderFlicker = true
 
 export default ShowWalletPage

@@ -1,5 +1,4 @@
-import { useRouter, BlitzPage, Routes } from "blitz"
-import Layout from "app/core/layouts/Layout"
+import { BlitzPage } from "blitz"
 import { SignupForm } from "app/auth/components/SignupForm"
 import WalletLayout from "app/core/layouts/WalletLayout"
 
