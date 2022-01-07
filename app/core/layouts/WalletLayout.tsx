@@ -46,11 +46,10 @@ function SidebarWithHeader({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Box minH="100vh" bg={"#242333"}>
+    <Box minH="100vh" bg={"#242333"} color={"white"}>
       <LoginSidebar />
       <Flex
         bg={"#15151e"}
-        color={"white"}
         minH={"3vh"}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -106,7 +105,11 @@ const LoginSidebar = () => {
 }
 
 const SidebarContent = () => {
-  const [wallets] = useQuery(getWallets, null)
+  let [wallets] = useQuery(getWallets, null)
+
+  if (!wallets) {
+    wallets = []
+  }
 
   return (
     <Box
@@ -121,7 +124,7 @@ const SidebarContent = () => {
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Image src={logo} alt="Logo" width={50} height={50} />
       </Flex>
-      {wallets.map((wallet) => (
+      {wallets!.map((wallet) => (
         <WalletNavItem wallet={wallet} key={wallet.name}>
           {wallet.name}
         </WalletNavItem>
