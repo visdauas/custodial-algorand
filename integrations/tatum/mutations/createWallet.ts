@@ -31,6 +31,6 @@ export default resolver.pipe(
         userId: user.id,
       },
     })
-    return algoWallet
+    return algoWallet.address
   }
 )

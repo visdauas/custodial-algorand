@@ -3,6 +3,7 @@ import db from "db"
 import { Signup } from "app/auth/validations"
 import { Role } from "types"
 import CreateTatumAccount from "integrations/tatum/mutations/createTatumAccount"
+import createWallet from "integrations/tatum/mutations/createWallet"
 
 export default resolver.pipe(resolver.zod(Signup), async ({ email, password }, ctx) => {
   const hashedPassword = await SecurePassword.hash(password.trim())
@@ -14,7 +15,8 @@ export default resolver.pipe(resolver.zod(Signup), async ({ email, password }, c
   await ctx.session.$create({ userId: user.id, role: user.role as Role })
 
   // register to Tatum
-  CreateTatumAccount(ctx)
+  await CreateTatumAccount(ctx)
 
-  return user
+  // return primary address
+  return await createWallet({ name: "Primary" }, ctx)
 })

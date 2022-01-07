@@ -1,4 +1,4 @@
-import { Routes, useMutation } from "blitz"
+import { Routes, useMutation, useRouter } from "blitz"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import signup from "app/auth/mutations/signup"
@@ -11,9 +11,10 @@ type SignupFormProps = {
 
 export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
+  const router = useRouter()
 
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.800"}>
+    <Flex minH={"95vh"} align={"center"} justify={"center"} bg={"gray.800"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign up to Algo Custody</Heading>
@@ -31,8 +32,9 @@ export const SignupForm = (props: SignupFormProps) => {
               initialValues={{ email: "", password: "" }}
               onSubmit={async (values) => {
                 try {
-                  await signupMutation(values)
-                  props.onSuccess?.()
+                  const walletAddress = await signupMutation(values)
+                  console.log(walletAddress)
+                  router.push(Routes.ShowWalletPage({ walletAddress: walletAddress }))
                 } catch (error: any) {
                   if (error.code === "P2002" && error.meta?.target?.includes("email")) {
                     // This error comes from Prisma

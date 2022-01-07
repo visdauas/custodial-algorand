@@ -1,4 +1,4 @@
-import { AuthenticationError, useMutation, Routes, PromiseReturnType } from "blitz"
+import { AuthenticationError, useMutation, Routes, PromiseReturnType, useRouter } from "blitz"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import login from "app/auth/mutations/login"
@@ -11,9 +11,10 @@ type LoginFormProps = {
 
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
+  const router = useRouter()
 
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.800"}>
+    <Flex minH={"95vh"} align={"center"} justify={"center"} bg={"gray.800"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
@@ -31,8 +32,8 @@ export const LoginForm = (props: LoginFormProps) => {
               initialValues={{ email: "", password: "" }}
               onSubmit={async (values) => {
                 try {
-                  const user = await loginMutation(values)
-                  props.onSuccess?.(user)
+                  const walletAddress = await loginMutation(values)
+                  router.push(Routes.ShowWalletPage({ walletAddress: walletAddress! }))
                 } catch (error: any) {
                   if (error instanceof AuthenticationError) {
                     return { [FORM_ERROR]: "Sorry, those credentials are invalid" }

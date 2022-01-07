@@ -21,6 +21,7 @@ import {
   FlexProps,
   Button,
   Stack,
+  Text,
 } from "@chakra-ui/react"
 import { ReactText } from "react"
 import getWallets from "integrations/tatum/queries/getWallets"
@@ -46,33 +47,25 @@ function SidebarWithHeader({ children }: { children: ReactNode }) {
 
   return (
     <Box minH="100vh" bg={"#242333"}>
-      <LoginSidebar onClose={onClose} />
-      <Drawer
-        autoFocus={false}
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="full"
-      >
-        <DrawerContent>
-          <LoginSidebar onClose={onClose} />
-        </DrawerContent>
-      </Drawer>
+      <LoginSidebar />
       <Flex
         bg={"#15151e"}
         color={"white"}
-        minH={"60px"}
+        minH={"3vh"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={2}
         borderStyle={"solid"}
         borderColor={"#016a7f"}
         align={"center"}
+        justify={{ base: "start", md: "end" }}
       >
         <LoginLogo />
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}></Flex>
+        <Flex flex={{ base: 1 }} justify={{ base: "start", md: "center" }}>
+          <Text fontWeight={600} fontSize={{ base: "3xl" }} fontFamily={"monospace"}>
+            Algorand Custody
+          </Text>
+        </Flex>
 
         <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
           <Suspense fallback="Loading...">
@@ -80,9 +73,18 @@ function SidebarWithHeader({ children }: { children: ReactNode }) {
           </Suspense>
         </Stack>
       </Flex>
-      <Box ml={{ base: 0, md: 60 }}>{children}</Box>
+      <BasePage>{children}</BasePage>
     </Box>
   )
+}
+
+const BasePage = ({ children }: { children: ReactNode }) => {
+  const currentUser = useCurrentUser()
+
+  if (currentUser) {
+    return <Box ml={{ base: 0, md: 60 }}>{children}</Box>
+  }
+  return <Box>{children}</Box>
 }
 
 const LoginLogo = () => {
@@ -94,20 +96,16 @@ const LoginLogo = () => {
   return <Image src={logo} alt="Logo" width={50} height={50} />
 }
 
-const LoginSidebar = ({ onClose, ...rest }: SidebarProps) => {
+const LoginSidebar = () => {
   const currentUser = useCurrentUser()
 
   if (!currentUser) {
     return null
   }
-  return <SidebarContent onClose={onClose} />
+  return <SidebarContent />
 }
 
-interface SidebarProps extends BoxProps {
-  onClose: () => void
-}
-
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = () => {
   const [wallets] = useQuery(getWallets, null)
 
   return (
@@ -119,11 +117,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Image src={logo} alt="Logo" width={50} height={50} />
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {wallets.map((wallet) => (
         <WalletNavItem wallet={wallet} key={wallet.name}>
@@ -139,6 +135,7 @@ interface WalletNavItemProps extends FlexProps {
   wallet: AlgoWallet
   children: ReactText
 }
+
 const WalletNavItem = ({ wallet, children, ...rest }: WalletNavItemProps) => {
   return (
     <BlitzLink href={Routes.ShowWalletPage({ walletAddress: wallet.address })}>

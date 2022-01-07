@@ -3,14 +3,21 @@ import createWallet from "integrations/tatum/mutations/createWallet"
 import WalletLayout from "app/core/layouts/WalletLayout"
 import { Form } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
-import { Button } from "@chakra-ui/react"
+import { Box, Button } from "@chakra-ui/react"
 
 const NewWalletPage: BlitzPage = () => {
   const router = useRouter()
   const [createWalletMutation] = useMutation(createWallet)
 
   return (
-    <div>
+    <Box
+      shadow={"xl"}
+      border={"1.5px solid"}
+      borderColor={"#01B0D3"}
+      rounded={"lg"}
+      margin={5}
+      padding={5}
+    >
       <Form
         initialValues={{ name: "" }}
         onSubmit={async (values) => {
@@ -34,7 +41,7 @@ const NewWalletPage: BlitzPage = () => {
           Create
         </Button>
       </Form>
-    </div>
+    </Box>
   )
 }
 

@@ -26,5 +26,11 @@ export default resolver.pipe(resolver.zod(Login), async ({ email, password }, ct
 
   await ctx.session.$create({ userId: user.id, role: user.role as Role })
 
-  return user
+  const userData = await db.user.findFirst({
+    where: { id: ctx.session.userId! },
+    include: { algoWallets: true },
+  })
+
+  // return primary address
+  return userData?.algoWallets[0]?.address
 })

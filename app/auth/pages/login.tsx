@@ -1,22 +1,17 @@
 import { useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { LoginForm } from "app/auth/components/LoginForm"
+import WalletLayout from "app/core/layouts/WalletLayout"
 
 const LoginPage: BlitzPage = () => {
-  const router = useRouter()
-
   return (
     <div>
-      <LoginForm
-        onSuccess={(_user) => {
-          router.push(Routes.NewWalletPage())
-        }}
-      />
+      <LoginForm />
     </div>
   )
 }
 
 LoginPage.redirectAuthenticatedTo = "/"
-LoginPage.getLayout = (page) => <Layout title="Log In">{page}</Layout>
+LoginPage.getLayout = (page) => <WalletLayout title="Log In">{page}</WalletLayout>
 
 export default LoginPage
