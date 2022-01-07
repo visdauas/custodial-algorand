@@ -23,7 +23,7 @@ const NewWalletPage: BlitzPage = () => {
         onSubmit={async (values) => {
           try {
             const wallet = await createWalletMutation(values)
-            router.replace(Routes.ShowWalletPage({ walletAddress: wallet.address }))
+            router.push(Routes.ShowWalletPage({ walletAddress: wallet }))
           } catch (error: any) {
             console.error(error)
           }
