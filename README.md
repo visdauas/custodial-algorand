@@ -4,8 +4,6 @@ Built for the Algorand + Tatum [gitcoin hackathon](https://gitcoin.co/issue/algo
 
 ### Disclaimer: This project isn't audited and you shouldn't use it in a production environment
 
-## Try it out -> [Demo Site](http://20.123.179.17:8080/) (Testnet)
-
 ![](https://s10.gifyu.com/images/wallet39c3442aee7b019bb.png)
 
 ## Tech Stack
